@@ -1,13 +1,15 @@
-import { login } from './api.js';
 import { useState, useEffect } from 'react';
 import Login from './page/Login/login.js';
 import Index from './page/Index/index.js';
 import history from './history.js';
 
-function App({ isLogin }) {
-
-  const [currentPath, setCurrentPath] = useState(history ? history.getCurrentPath() : '/');
-  const [isLoginState, setIsLoginState] = useState(isLogin);
+function App({ initialPath }) {
+  const [currentPath, setCurrentPath] = useState(() => {
+    if (initialPath !== undefined) {
+      return initialPath;
+    }
+    return '/';
+  });
   useEffect(() => {
     // 订阅路由变化
     if (history) {
@@ -20,15 +22,12 @@ function App({ isLogin }) {
       };
     }
   }, []);
-
-
-
   return (
     <div>
-      <Login isLoginState={isLoginState} setIsLoginState={setIsLoginState} />
-      <Index isLoginState={isLoginState} setIsLoginState={setIsLoginState} />;
+      {currentPath === '/' && <Index />}
+      {currentPath === '/login' && <Login />}
     </div>
-  );
+  )
 }
 
 export default App;

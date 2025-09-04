@@ -3,19 +3,19 @@ import { useState } from 'react';
 import { saveToken } from '../../token';
 import './index.css';
 
-function RegisterForm({ setIsLogin }) {
+function RegisterForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
+
     const handleRegister = async () => {
         const response = await register({ username, password });
         console.log(response, 'response');
         if (response.status === 201) {
             saveToken(response.data.token);
-            setIsLogin(true);
+            window.location.href = '/';
         }
     }
-    
+
     return (
         <div className='register-form'>
             <input type='text' placeholder='请输入用户名' value={username} onChange={(e) => setUsername(e.target.value)} />

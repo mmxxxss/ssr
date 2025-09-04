@@ -15,7 +15,7 @@ app.use(express.static('dist'));
 
 // 添加对 /login 路由的支持
 app.get('/login', async (req, res) => {
-  const html = renderToString(<App isLogin={false} />);
+  const html = renderToString(<App initialPath='/login' />);
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -34,7 +34,7 @@ app.get('/login', async (req, res) => {
 // 处理所有路由请求
 app.get('*', async (req, res) => {
   // 1. 根据请求 URL 创建服务器端路由
-  const html = renderToString(<App isLogin={true} />);
+  const html = renderToString(<App initialPath='/' />);
   // 2. 渲染 React 组件树为字符串
   // 3. 拼接完整 HTML 并返回
   res.send(`
