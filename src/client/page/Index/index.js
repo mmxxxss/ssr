@@ -15,13 +15,7 @@ export default function Index() {
     const handleLogout = () => {
         removeToken();
         // 在客户端创建HistoryManager实例
-        if (typeof window !== 'undefined') {
-            const history = createHistory(window.initialPath);
-            if (history) {
-                history.push('/login');
-                window.location.reload();
-            }
-        }
+        window.location.href = '/login';
     };
     return (
         (
