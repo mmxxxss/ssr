@@ -1,6 +1,6 @@
 class HistoryManager {
   constructor(initialPath) {
-    this.listeners = [];
+    this.listeners = null;
     // 在服务器端不执行window相关代码
     if (typeof window !== 'undefined') {
       this.currentPath = window.location.pathname;
@@ -41,14 +41,14 @@ class HistoryManager {
   }
 
   subscribe(listener) {
-    this.listeners.push(listener);
+    this.listeners = listener;
     return () => {
-      this.listeners = this.listeners.filter(l => l !== listener);
+      this.listeners = null;
     };
   }
 
   notifyListeners() {
-    this.listeners.forEach(listener => listener(this.currentPath));
+    this.listeners(this.currentPath);
   }
 }
 
