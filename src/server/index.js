@@ -1,30 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import jwt from 'jsonwebtoken';
 import { renderToString } from 'react-dom/server';
 import App from '../client/App.js';
-
-const jwtSecret = process.env.JWT_SECRET || 'default_secret';
-
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-
-  if (!token) {
-    return res.status(401).json({ error: 'Access token required' });
-  }
-
-
-  jwt.verify(token, jwtSecret, (err, user) => {
-    if (err) {
-      return res.status(403).json({ error: 'Invalid or expired token' });
-    }
-    req.user = user;
-    next();
-  });
-};
 
 const app = express();
 
@@ -33,8 +11,6 @@ app.use(express.json());
 
 // 允许所有域请求
 app.use(cors());
-// app.use(express.static(path.join(__dirname, 'dist')));
-// Serve static files
 app.use(express.static('dist'));
 
 // 添加对 /login 路由的支持
