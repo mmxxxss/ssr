@@ -1,12 +1,12 @@
 class HistoryManager {
-  constructor() {
+  constructor(initialPath) {
     this.listeners = [];
     // 在服务器端不执行window相关代码
     if (typeof window !== 'undefined') {
       this.currentPath = window.location.pathname;
       this.init();
     } else {
-      this.currentPath = '/';
+      this.currentPath = initialPath || '/';
     }
   }
 
@@ -53,6 +53,8 @@ class HistoryManager {
 }
 
 // 在服务器端不创建HistoryManager实例
-const history = typeof window !== 'undefined' ? new HistoryManager() : null;
+const createHistory = (initialPath) => {
+  return typeof window !== 'undefined' ? new HistoryManager(initialPath) : null;
+};
 
-export default history;
+export default createHistory;

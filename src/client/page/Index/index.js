@@ -1,6 +1,6 @@
 import { getUserAccount } from '../../api';
 import { useEffect, useState } from 'react';
-import history from '../../history.js';
+import createHistory from '../../history.js';
 import { removeToken } from '../../token';
 
 export default function Index() {
@@ -14,14 +14,19 @@ export default function Index() {
     }, [])
     const handleLogout = () => {
         removeToken();
-        if (history) {
-            history.push('/login');
+        // 在客户端创建HistoryManager实例
+        if (typeof window !== 'undefined') {
+            const history = createHistory(window.initialPath);
+            if (history) {
+                history.push('/login');
+                window.location.reload();
+            }
         }
     };
     return (
         (
             <div className="index">
-                <div>欢迎, {account.username}!1111111</div>
+                <div>欢迎, {account.username}!</div>
                 <button onClick={handleLogout}>登出</button>
             </div>
         )

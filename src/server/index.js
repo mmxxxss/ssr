@@ -24,6 +24,9 @@ app.get('/login', async (req, res) => {
       </head>
       <body>
         <div id="root">${html}</div>
+        <script>
+          window.initialPath = '/login';
+        </script>
         <script src="/client.js"></script>
       </body>
     </html>
@@ -47,6 +50,9 @@ app.get('*', async (req, res) => {
         <div id="root">${html}</div>
         <!-- 客户端脚本：用于 hydration -->
         <script src="/client.js"></script>
+        <script>
+          window.initialPath = '/';
+        </script>
       </body>
     </html>
   `);
