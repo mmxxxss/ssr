@@ -3,18 +3,16 @@ import { useState } from 'react';
 import { saveToken } from '../../token';
 import './index.css';
 
-function LoginForm() {
+function LoginForm({ history }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     const handleLogin = async () => {
         const response = await login({ username, password });
         if (response.status === 200) {
             saveToken(response.data.token);
-            window.location.href = '/';
+            history.current.push('/');
         }
     }
-
     return (
         <div className='login-form'>
             <input type='text' placeholder='请输入用户名' value={username} onChange={(e) => setUsername(e.target.value)} />

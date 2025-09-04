@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Login from './page/Login/login.js';
 import Index from './page/Index/index.js';
 import createHistory from './history.js';
@@ -10,14 +10,13 @@ function App({ initialPath }) {
     }
     return '/';
   });
-
+  let history = useRef(null);
   useEffect(() => {
     // 在客户端创建HistoryManager实例
-    let history;
     if (typeof window !== 'undefined') {
-      history = createHistory(window.initialPath);
+      history.current = createHistory(window.initialPath);
       // 订阅路由变化
-      const unsubscribe = history.subscribe((path) => {
+      const unsubscribe = history.current.subscribe((path) => {
         setCurrentPath(path);
       });
 
@@ -29,8 +28,8 @@ function App({ initialPath }) {
 
   return (
     <div>
-      {currentPath === '/' && <Index />}
-      {currentPath === '/login' && <Login />}
+      {currentPath === '/' && <Index history={history} />}
+      {currentPath === '/login' && <Login history={history} />}
     </div>
   )
 }

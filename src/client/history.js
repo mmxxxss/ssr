@@ -41,6 +41,9 @@ class HistoryManager {
   }
 
   subscribe(listener) {
+
+    console.log(listener, 'test1');
+
     this.listeners.push(listener);
     return () => {
       this.listeners = this.listeners.filter(l => l !== listener);

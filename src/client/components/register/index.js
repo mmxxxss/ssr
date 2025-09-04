@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { saveToken } from '../../token';
 import './index.css';
 
-function RegisterForm() {
+function RegisterForm({ history }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -12,7 +12,7 @@ function RegisterForm() {
         console.log(response, 'response');
         if (response.status === 201) {
             saveToken(response.data.token);
-            window.location.href = '/';
+            history.current.push('/login');
         }
     }
 
