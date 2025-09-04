@@ -4,9 +4,9 @@ import Login from './page/Login/login.js';
 import Index from './page/Index/index.js';
 import history from './history.js';
 
-function App({ initialData, isLogin, setIsLogin }) {
+function App({ isLogin }) {
   const [currentPath, setCurrentPath] = useState(history ? history.getCurrentPath() : '/');
-
+  const [isLogin, setIsLogin] = useState(isLogin);
   useEffect(() => {
     // 订阅路由变化
     if (history) {
@@ -22,9 +22,9 @@ function App({ initialData, isLogin, setIsLogin }) {
 
   const renderPage = () => {
     if (isLogin) {
-      return <Index isLogin={isLogin} setIsLogin={setIsLogin} />;
+      return <Index isLogin={isLogin} />;
     } else {
-      return <Login isLogin={isLogin} setIsLogin={setIsLogin} />;
+      return <Login isLogin={isLogin} />;
     }
   };
 
