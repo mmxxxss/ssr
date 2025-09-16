@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+// 1. 用户服务（用户相关接口）
+service UserService {
+  rpc GetUserInfo (GetUserInfoRequest) returns (GetUserInfoResponse);
+}
+// 定义请求消息结构
+message GetUserInfoRequest {
+  int32 user_id = 1; // 用户ID作为请求参数，使用整数类型表示，标识号为1
+}
+
+// 定义响应消息结构
+message GetUserInfoResponse {
+  string username = 1;
+  string email = 2;
+  // 可以根据实际返回的用户信息字段依次定义更多的字段类型和标识号
+}

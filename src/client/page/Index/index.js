@@ -1,4 +1,4 @@
-import { getUserAccount } from '../../api';
+import { getUserAccount } from '../../service/api';
 import { useEffect, useState } from 'react';
 import { removeToken } from '../../token';
 

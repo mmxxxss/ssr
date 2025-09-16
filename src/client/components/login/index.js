@@ -1,4 +1,4 @@
-import { login } from '../../api';
+import { login } from '../../service/api';
 import { useState } from 'react';
 import { saveToken } from '../../token';
 import './index.css';

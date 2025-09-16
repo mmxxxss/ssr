@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { renderToString } from 'react-dom/server';
 import App from '../client/App.js';
-
+const { getUserInfo } = require('./rpc-client');
 const app = express();
 
 // 解析 JSON 请求体
@@ -15,7 +15,22 @@ app.use(express.static('dist'));
 
 // 添加对 /login 路由的支持
 app.get('/login', async (req, res) => {
-  const html = renderToString(<App initialPath='/login' />);
+  // 开发环境中使用模拟数据
+  let userData = { username: 'testuser', email: 'test@example.com' };
+
+  // 只在生产环境中尝试连接远程gRPC服务
+  if (process.env.NODE_ENV === 'production') {
+    try {
+      userData = await getUserInfo("10");
+      userData = userData
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+      // 使用默认数据
+      userData = { username: 'defaultuser', email: 'default@example.com' };
+    }
+  }
+
+  const html = renderToString(<App userData={userData} initialPath='/login' />);
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -26,6 +41,7 @@ app.get('/login', async (req, res) => {
         <div id="root">${html}</div>
         <script>
           window.initialPath = '/login';
+          window.userData = ${JSON.stringify(userData)};
         </script>
         <script src="/client.js"></script>
       </body>

@@ -3,7 +3,7 @@ import Login from './page/Login/login.js';
 import Index from './page/Index/index.js';
 import createHistory from './history.js';
 
-function App({ initialPath }) {
+function App({ initialPath, userData }) {
   const [currentPath, setCurrentPath] = useState(() => {
     if (initialPath !== undefined) {
       return initialPath;
@@ -28,6 +28,7 @@ function App({ initialPath }) {
 
   return (
     <div>
+      <div>userData: {JSON.stringify(userData)}</div>
       {currentPath === '/' && <Index history={history} />}
       {currentPath === '/login' && <Login history={history} />}
     </div>

@@ -1,4 +1,4 @@
-import { register } from '../../api';
+import { register } from '../../service/api';
 import { useState } from 'react';
 import { saveToken } from '../../token';
 import './index.css';
