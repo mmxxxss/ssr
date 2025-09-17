@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const clientConfig = {
   entry: './src/client/index.js',
@@ -71,7 +72,14 @@ const serverConfig = {
     extensions: ['.js', '.jsx']
   },
   target: 'node',
-  externals: [nodeExternals()]
+  externals: [nodeExternals()],
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/server/user-service.proto', to: 'user-service.proto' }
+      ]
+    })
+  ]
 };
 
 module.exports = [clientConfig, serverConfig];

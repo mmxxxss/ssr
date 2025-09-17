@@ -15,12 +15,8 @@ app.use(express.static('dist'));
 
 // 添加对 /login 路由的支持
 app.get('/login', async (req, res) => {
-  console.log(req, 'res');
-
-  // 开发环境中使用模拟数据
-  let userData = { username: 'testuser', email: 'test@example.com' };
-
   // 只在生产环境中尝试连接远程gRPC服务
+  let userData = {};
   if (process.env.NODE_ENV === 'production') {
     try {
       userData = await getUserInfo("10");
@@ -55,8 +51,19 @@ app.get('/login', async (req, res) => {
 // 处理所有路由请求
 app.get('*', async (req, res) => {
   // 1. 根据请求 URL 创建服务器端路由
-  const html = renderToString(<App initialPath='/' />);
+  let userData = {};
+  if (process.env.NODE_ENV === 'production') {
+    try {
+      userData = await getUserInfo("10");
+      userData = userData
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+      // 使用默认数据
+      userData = { username: 'defaultuser', email: 'default@example.com' };
+    }
+  }
   // 2. 渲染 React 组件树为字符串
+  const html = renderToString(<App userData={userData} initialPath='/' />);
   // 3. 拼接完整 HTML 并返回
   res.send(`
     <!DOCTYPE html>
@@ -70,6 +77,7 @@ app.get('*', async (req, res) => {
         <script src="/client.js"></script>
         <script>
           window.initialPath = '/';
+          window.userData = ${JSON.stringify(userData)};
         </script>
       </body>
     </html>
