@@ -32,10 +32,10 @@ jobs:
           target: "/server/ssr"
           strip_components: 1
 
-      # - name: Restart Node.js service
-      #   uses: appleboy/ssh-action@v1.0.0
-      #   with:
-      #     host: 8.130.87.194
-      #     username: ${{ secrets.SERVER_USERNAME }}
-      #     key: ${{ secrets.SERVER_SSH_KEY }}
-      #     script: pm2 restart nodejs-api
+      - name: Restart Node.js service
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 8.130.87.194
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: cd /server/ssr && node server.js
