@@ -41,7 +41,7 @@ app.get('/login', async (req, res) => {
           window.initialPath = '/login';
           window.userData = ${JSON.stringify(userData)};
         </script>
-        <script src="/client.js"></script>
+        <script src="http://8.130.87.194/client.js"></script>
       </body>
     </html>
   `);
@@ -74,9 +74,9 @@ app.get('/', async (req, res) => {
       <body>
         <div id="root">${html}</div>
         <!-- 客户端脚本：用于 hydration -->
-        <script src="/client.js"></script>
+        <script src="http://8.130.87.194/client.js"></script>
         <script>
-          window.initialPath = ${JSON.stringify(req.params.path ? `/${req.params.path}` : '/')};
+          window.initialPath = '/';
           window.userData = ${JSON.stringify(userData)};
         </script>
       </body>
