@@ -49,7 +49,7 @@ app.get('/login', async (req, res) => {
 
 // Handle all routes, but exclude API routes and static files
 // 处理所有路由请求
-app.get('*', async (req, res) => {
+app.get('/:path(*)', async (req, res) => {
   // 1. 根据请求 URL 创建服务器端路由
   let userData = {};
   if (process.env.NODE_ENV === 'production') {
@@ -63,7 +63,7 @@ app.get('*', async (req, res) => {
     }
   }
   // 2. 渲染 React 组件树为字符串
-  const html = renderToString(<App userData={userData} initialPath='/' />);
+  const html = renderToString(<App userData={userData} initialPath={req.params.path ? `/${req.params.path}` : '/'} />);
   // 3. 拼接完整 HTML 并返回
   res.send(`
     <!DOCTYPE html>
@@ -76,7 +76,7 @@ app.get('*', async (req, res) => {
         <!-- 客户端脚本：用于 hydration -->
         <script src="/client.js"></script>
         <script>
-          window.initialPath = '/';
+          window.initialPath = ${JSON.stringify(req.params.path ? `/${req.params.path}` : '/')};
           window.userData = ${JSON.stringify(userData)};
         </script>
       </body>
