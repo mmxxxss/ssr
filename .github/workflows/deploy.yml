@@ -29,7 +29,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: "dist/"
-          target: "/ssr"
+          target: "/server/ssr"
           strip_components: 1
 
       # - name: Restart Node.js service
