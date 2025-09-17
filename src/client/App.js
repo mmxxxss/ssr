@@ -8,7 +8,7 @@ function App({ initialPath, userData }) {
     if (initialPath !== undefined) {
       return initialPath;
     }
-    return '/';
+    return '/ssr';
   });
   let history = useRef(null);
   useEffect(() => {
@@ -28,8 +28,8 @@ function App({ initialPath, userData }) {
 
   return (
     <div>
-      {currentPath === '/' && <Index history={history} userData={userData} />}
-      {currentPath === '/login' && <Login history={history} />}
+      {currentPath === '/ssr' && <Index history={history} userData={userData} />}
+      {currentPath === '/ssr/login' && <Login history={history} />}
     </div>
   )
 }

@@ -28,7 +28,7 @@ app.get('/login', async (req, res) => {
     }
   }
 
-  const html = renderToString(<App userData={userData} initialPath='/login' />);
+  const html = renderToString(<App userData={userData} initialPath='/ssr/login' />);
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -38,7 +38,7 @@ app.get('/login', async (req, res) => {
       <body>
         <div id="root">${html}</div>
         <script>
-          window.initialPath = '/login';
+          window.initialPath = '/ssr/login';
           window.userData = ${JSON.stringify(userData)};
         </script>
         <script src="http://8.130.87.194/client.js"></script>
@@ -63,7 +63,7 @@ app.get('/', async (req, res) => {
     }
   }
   // 2. 渲染 React 组件树为字符串
-  const html = renderToString(<App userData={userData} initialPath='/' />);
+  const html = renderToString(<App userData={userData} initialPath='/ssr' />);
   // 3. 拼接完整 HTML 并返回
   res.send(`
     <!DOCTYPE html>
@@ -76,7 +76,7 @@ app.get('/', async (req, res) => {
         <!-- 客户端脚本：用于 hydration -->
         <script src="http://8.130.87.194/client.js"></script>
         <script>
-          window.initialPath = '/';
+          window.initialPath = '/ssr';
           window.userData = ${JSON.stringify(userData)};
         </script>
       </body>

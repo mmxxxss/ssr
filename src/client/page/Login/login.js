@@ -13,7 +13,7 @@ export default function Login({ history }) {
                 </div>
                 <div className='login-content'>
                     {activeTab === 'login' && <LoginForm history={history} />}
-                    {activeTab === 'register' && <RegisterForm history={history} />}
+                    {activeTab === 'register' && <RegisterForm setActiveTab={setActiveTab} />}
                 </div>
             </div>
         )

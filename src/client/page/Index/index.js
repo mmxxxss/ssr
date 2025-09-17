@@ -17,7 +17,7 @@ export default function Index({ history, userData }) {
     }, [])
     const handleLogout = () => {
         setIsLogin(false);
-        history.current.push('/login');
+        history.current.push('/ssr/login');
     };
     return (
         (

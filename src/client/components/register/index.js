@@ -2,7 +2,7 @@ import { register } from '../../service/api';
 import { useState } from 'react';
 import './index.css';
 
-function RegisterForm({ history }) {
+function RegisterForm({ setActiveTab }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -10,7 +10,7 @@ function RegisterForm({ history }) {
         const response = await register({ username, password });
         console.log(response, 'response');
         if (response.status === 201) {
-            history.current.push('/login');
+            setActiveTab('login');
         }
     }
 
