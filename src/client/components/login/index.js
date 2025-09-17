@@ -1,6 +1,5 @@
 import { login } from '../../service/api';
 import { useState } from 'react';
-import { saveToken } from '../../token';
 import './index.css';
 
 function LoginForm({ history }) {
@@ -9,7 +8,6 @@ function LoginForm({ history }) {
     const handleLogin = async () => {
         const response = await login({ username, password });
         if (response.status === 200) {
-            saveToken(response.data.token);
             history.current.push('/');
         }
     }

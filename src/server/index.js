@@ -15,6 +15,8 @@ app.use(express.static('dist'));
 
 // 添加对 /login 路由的支持
 app.get('/login', async (req, res) => {
+  console.log(req, 'res');
+
   // 开发环境中使用模拟数据
   let userData = { username: 'testuser', email: 'test@example.com' };
 

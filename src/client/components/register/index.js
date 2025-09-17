@@ -1,6 +1,5 @@
 import { register } from '../../service/api';
 import { useState } from 'react';
-import { saveToken } from '../../token';
 import './index.css';
 
 function RegisterForm({ history }) {
@@ -11,7 +10,6 @@ function RegisterForm({ history }) {
         const response = await register({ username, password });
         console.log(response, 'response');
         if (response.status === 201) {
-            saveToken(response.data.token);
             history.current.push('/login');
         }
     }

@@ -25,17 +25,17 @@ jobs:
       - name: Deploy to server
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: 8.130.30.150
+          host: 8.130.87.194
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: "dist/"
           target: "/app/dist"
           strip_components: 1
-      
+
       - name: Restart Node.js service
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: 8.130.30.150
+          host: 8.130.87.194
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: pm2 restart nodejs-api

@@ -1,8 +1,6 @@
 import { getUserAccount } from '../../service/api';
 import { useEffect, useState } from 'react';
-import { removeToken } from '../../token';
-
-export default function Index({ history }) {
+export default function Index({ history, userData }) {
     const [account, setAccount] = useState({});
     const [isLogin, setIsLogin] = useState(false);
     useEffect(() => {
@@ -18,15 +16,14 @@ export default function Index({ history }) {
         })
     }, [])
     const handleLogout = () => {
-        removeToken();
         setIsLogin(false);
         history.current.push('/login');
     };
     return (
         (
             <div className="index">
-                <div>欢迎, {account.username}!</div>
-                <button onClick={handleLogout}>{isLogin ? '退出登录' : '登录'}</button>
+                <div>欢迎, {JSON.stringify(userData)}!</div>
+                {isLogin && <button onClick={handleLogout}>退出登录</button>}
             </div>
         )
     )

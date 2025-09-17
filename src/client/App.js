@@ -28,8 +28,7 @@ function App({ initialPath, userData }) {
 
   return (
     <div>
-      <div>userData: {JSON.stringify(userData)}</div>
-      {currentPath === '/' && <Index history={history} />}
+      {currentPath === '/' && <Index history={history} userData={userData} />}
       {currentPath === '/login' && <Login history={history} />}
     </div>
   )
