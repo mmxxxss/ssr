@@ -3,7 +3,7 @@ const protoLoader = require('@grpc/proto-loader');
 const path = require('path');
 // 加载用户服务的.proto定义
 // 使用path.resolve确保在不同环境下都能正确找到.proto文件
-const userProtoPath = path.resolve(__dirname, 'user-service.proto');
+const userProtoPath = './user-service.proto';
 const packageDefinition = protoLoader.loadSync(userProtoPath);
 const userService = grpc.loadPackageDefinition(packageDefinition).UserService;
 // 创建RPC客户端
