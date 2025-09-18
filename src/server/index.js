@@ -41,7 +41,6 @@ app.get('/ssr', async (req, res) => {
   if (process.env.NODE_ENV === 'production') {
     try {
       userData = await getUserInfo("10");
-      userData = userData
     } catch (error) {
       console.error('Failed to fetch user data:', error);
       // 使用默认数据

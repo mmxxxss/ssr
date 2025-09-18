@@ -6,7 +6,7 @@ class HistoryManager {
       this.currentPath = window.location.pathname;
       this.init();
     } else {
-      this.currentPath = initialPath || '/';
+      this.currentPath = initialPath || '/ssr';
     }
   }
 
