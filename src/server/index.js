@@ -15,20 +15,7 @@ app.use(express.static('dist'));
 
 // 添加对 /login 路由的支持
 app.get('/login', async (req, res) => {
-  // 只在生产环境中尝试连接远程gRPC服务
-  let userData = {};
-  if (process.env.NODE_ENV === 'production') {
-    try {
-      userData = await getUserInfo("10");
-      userData = userData
-    } catch (error) {
-      console.error('Failed to fetch user data:', error);
-      // 使用默认数据
-      userData = { username: 'defaultuser', email: 'default@example.com' };
-    }
-  }
-
-  const html = renderToString(<App userData={userData} initialPath='/ssr/login' />);
+  const html = renderToString(<App initialPath='/ssr/login' />);
   res.send(`
     <!DOCTYPE html>
     <html>

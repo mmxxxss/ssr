@@ -4,7 +4,7 @@ import App from './App';
 const container = document.getElementById('root');
 
 function Root() {
-  return <App initialPath={typeof window !== 'undefined' ? window.initialPath : '/'} userData={window.userData} />;
+  return <App />;
 }
 
 hydrateRoot(container, <Root />);
