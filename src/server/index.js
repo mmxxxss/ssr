@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.static('dist'));
 
 // 添加对 /login 路由的支持
-app.get('/login', async (req, res) => {
+app.get('/ssr/login', async (req, res) => {
   const html = renderToString(<App initialPath='/ssr/login' />);
   res.send(`
     <!DOCTYPE html>
@@ -35,7 +35,7 @@ app.get('/login', async (req, res) => {
 
 // Handle all routes, but exclude API routes and static files
 // 处理所有路由请求
-app.get('/', async (req, res) => {
+app.get('/ssr', async (req, res) => {
   // 1. 根据请求 URL 创建服务器端路由
   let userData = {};
   if (process.env.NODE_ENV === 'production') {
