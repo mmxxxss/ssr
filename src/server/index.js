@@ -26,7 +26,6 @@ app.get('/login', async (req, res) => {
         <div id="root">${html}</div>
         <script>
           window.initialPath = '/ssr/login';
-          window.userData = ${JSON.stringify(userData)};
         </script>
         <script src="http://8.130.87.194/client.js"></script>
       </body>
@@ -46,7 +45,7 @@ app.get('/', async (req, res) => {
     } catch (error) {
       console.error('Failed to fetch user data:', error);
       // 使用默认数据
-      userData = { username: 'defaultuser', email: 'default@example.com' };
+      userData = { username: '', email: '' };
     }
   }
   // 2. 渲染 React 组件树为字符串
