@@ -45,25 +45,22 @@ app.get('/ssr', async (req, res) => {
   let userData = {};
   if (process.env.NODE_ENV === 'production') {
     try {
-      // 优先从查询参数获取user_id
+      // 从查询参数获取user_id
       let user_id = req.query.user_id;
-      // 如果查询参数中没有user_id，尝试从cookie中解析token
       if (req.cookies.token) {
         const token = req.cookies.token;
-        // 验证token并解析出user_id
         if (token) {
           try {
             // 使用JWT验证token
             jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
+            // 如果有user_id，获取用户信息
+            if (user_id) {
+              userData = await getUserInfo(user_id);
+            }
           } catch (tokenError) {
             console.error('Token verification failed:', tokenError);
-            // Token验证失败，使用访客身份
           }
         }
-      }
-      // 如果有user_id，获取用户信息
-      if (user_id) {
-        userData = await getUserInfo(user_id);
       }
     } catch (error) {
       console.error('Failed to fetch user data:', error);
