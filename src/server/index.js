@@ -89,7 +89,7 @@ app.get('/ssr', async (req, res) => {
           window.initialPath = '/ssr';
           window.userData = ${JSON.stringify(userData)};
         </script>
-        <script src="/client.js"></script>
+        <script src="http://8.130.87.194/client.js"></script>
       </body> 
     </html>
   `);
