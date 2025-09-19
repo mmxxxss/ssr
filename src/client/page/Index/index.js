@@ -4,16 +4,21 @@ export default function Index({ history, userData }) {
     const [account, setAccount] = useState({});
     const [isLogin, setIsLogin] = useState(false);
     useEffect(() => {
-        getUserAccount().then(res => {
-            setAccount(res.data);
+        if (Object.keys(userData).length) {
+            setAccount(userData);
             setIsLogin(true);
-        }).catch(err => {
-            if (err.response.status === 401) {
-                setIsLogin(false);
-            } else {
-                console.log(err, 'err');
-            }
-        })
+        } else {
+            getUserAccount().then(res => {
+                setAccount(res.data);
+                setIsLogin(true);
+            }).catch(err => {
+                if (err.response.status === 401) {
+                    setIsLogin(false);
+                } else {
+                    console.log(err, 'err');
+                }
+            })
+        }
     }, [])
     const handleLogout = () => {
         setIsLogin(false);
@@ -22,7 +27,7 @@ export default function Index({ history, userData }) {
     return (
         (
             <div className="index">
-                <div>欢迎, {JSON.stringify(userData)}!</div>
+                <div>欢迎, {JSON.stringify(account)}!</div>
                 {isLogin && <button onClick={handleLogout}>退出登录</button>}
             </div>
         )
