@@ -59,12 +59,12 @@ app.get('/ssr', async (req, res) => {
       <body>
         <div id="root">${html}</div>
         <!-- 客户端脚本：用于 hydration -->
-        <script src="http://8.130.87.194/client.js"></script>
         <script>
           window.initialPath = '/ssr';
           window.userData = ${JSON.stringify(userData)};
         </script>
-      </body>
+        <script src="http://8.130.87.194/client.js"></script>
+      </body> 
     </html>
   `);
 });

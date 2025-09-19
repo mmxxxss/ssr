@@ -3,10 +3,9 @@ import Login from './page/Login/login.js';
 import Index from './page/Index/index.js';
 import createHistory from './history.js';
 
-function App({ initialPath = typeof window !== 'undefined' ? window.initialPath : '/', userData = {} }) {
+function App({ initialPath = typeof window !== 'undefined' ? window.initialPath : '/ssr', userData = {} }) {
   const [currentPath, setCurrentPath] = useState(initialPath);
   const history = useRef(null);
-  
   useEffect(() => {
     // 在客户端创建HistoryManager实例
     if (typeof window !== 'undefined') {

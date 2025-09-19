@@ -22,7 +22,8 @@ class HistoryManager {
 
   push(path) {
     if (typeof window !== 'undefined' && this.currentPath !== path) {
-      this.currentPath = path;
+      let realPath = path.split("?")[0]
+      this.currentPath = realPath;
       window.history.pushState(null, '', path);
       this.notifyListeners();
     }

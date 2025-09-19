@@ -8,7 +8,7 @@ function LoginForm({ history }) {
     const handleLogin = async () => {
         const response = await login({ username, password });
         if (response.status === 200) {
-            history.current.push('/ssr');
+            history.current.push('/ssr?user_id=123');
         }
     }
     return (
