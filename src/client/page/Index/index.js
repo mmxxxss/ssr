@@ -11,7 +11,7 @@ export default function Index({ history, userData }) {
             const params = new URLSearchParams(window.location.search);
             let queryParams = Object.fromEntries(params.entries());
             getUserAccount(queryParams.user_id).then(res => {
-                setAccount(res.data);
+                setAccount(res.data.data);
                 setIsLogin(true);
             }).catch(err => {
                 if (err.response.status === 401) {
