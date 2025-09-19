@@ -22,9 +22,9 @@ export const register = async (user) => {
     })
 }
 
-export const getUserAccount = async () => {
+export const getUserAccount = async (user_id) => {
     return server({
         method: 'get',
-        url: '/api/profile'
+        url: `/api/profile?user_id=${user_id}`
     });
 }

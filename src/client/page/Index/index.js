@@ -8,7 +8,9 @@ export default function Index({ history, userData }) {
             setAccount(userData);
             setIsLogin(true);
         } else {
-            getUserAccount().then(res => {
+            const params = new URLSearchParams(window.location.search);
+            let queryParams = Object.fromEntries(params.entries());
+            getUserAccount(queryParams.user_id).then(res => {
                 setAccount(res.data);
                 setIsLogin(true);
             }).catch(err => {

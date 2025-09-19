@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
 import { renderToString } from 'react-dom/server';
 import App from '../client/App.js';
 const { getUserInfo } = require('./rpc-client');
@@ -8,6 +10,9 @@ const app = express();
 
 // 解析 JSON 请求体
 app.use(express.json());
+
+// 解析 Cookie
+app.use(cookieParser());
 
 // 允许所有域请求
 app.use(cors());
@@ -40,11 +45,32 @@ app.get('/ssr', async (req, res) => {
   let userData = {};
   if (process.env.NODE_ENV === 'production') {
     try {
-      userData = await getUserInfo("10");
+      // 优先从查询参数获取user_id
+      let user_id = req.query.user_id;
+      // 如果查询参数中没有user_id，尝试从cookie中解析token
+      if (req.cookies.token) {
+        const token = req.cookies.token;
+        // 验证token并解析出user_id
+        if (token) {
+          try {
+            // 使用JWT验证token
+            jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
+          } catch (tokenError) {
+            console.error('Token verification failed:', tokenError);
+            // Token验证失败，使用访客身份
+            userData = { username: '访客', email: '' };
+          }
+        }
+      }
+
+      // 如果有user_id，获取用户信息
+      if (user_id) {
+        userData = await getUserInfo(user_id);
+      }
     } catch (error) {
       console.error('Failed to fetch user data:', error);
       // 使用默认数据
-      userData = { username: '', email: '' };
+      userData = { username: '访客', email: '' };
     }
   }
   // 2. 渲染 React 组件树为字符串
@@ -63,7 +89,7 @@ app.get('/ssr', async (req, res) => {
           window.initialPath = '/ssr';
           window.userData = ${JSON.stringify(userData)};
         </script>
-        <script src="http://8.130.87.194/client.js"></script>
+        <script src="/client.js"></script>
       </body> 
     </html>
   `);
