@@ -22,6 +22,13 @@ export const register = async (user) => {
     })
 }
 
+export const logout = async () => {
+    return server({
+        method: 'post',
+        url: '/api/logout',
+    })
+}
+
 export const getUserAccount = async (user_id) => {
     return server({
         method: 'get',

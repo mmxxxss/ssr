@@ -24,7 +24,11 @@ export default function Index({ history, userData }) {
     }, [])
     const handleLogout = () => {
         setIsLogin(false);
-        history.current.push('/ssr/login');
+        logout().then(res => {
+            history.current.push('/ssr/login');
+        }).catch(err => {
+            console.log(err, 'err');
+        })
     };
     return (
         (
