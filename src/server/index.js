@@ -58,7 +58,6 @@ app.get('/ssr', async (req, res) => {
           } catch (tokenError) {
             console.error('Token verification failed:', tokenError);
             // Token验证失败，使用访客身份
-            userData = { username: '访客', email: '' };
           }
         }
       }
@@ -68,8 +67,6 @@ app.get('/ssr', async (req, res) => {
       }
     } catch (error) {
       console.error('Failed to fetch user data:', error);
-      // 使用默认数据
-      userData = { username: '访客', email: '' };
     }
   }
   // 2. 渲染 React 组件树为字符串
