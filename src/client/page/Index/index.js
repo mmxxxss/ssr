@@ -1,4 +1,4 @@
-import { getUserAccount } from '../../service/api';
+import { getUserAccount, logout } from '../../service/api';
 import { useEffect, useState } from 'react';
 export default function Index({ history, userData }) {
     const [account, setAccount] = useState({});
