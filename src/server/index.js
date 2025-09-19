@@ -32,7 +32,7 @@ app.get('/ssr/login', async (req, res) => {
         <script>
           window.initialPath = '/ssr/login';
         </script>
-        <script src="http://8.130.87.194/client.js"></script>
+        <script src="/client.js"></script>
       </body>
     </html>
   `);
@@ -62,7 +62,6 @@ app.get('/ssr', async (req, res) => {
           }
         }
       }
-
       // 如果有user_id，获取用户信息
       if (user_id) {
         userData = await getUserInfo(user_id);
@@ -89,7 +88,7 @@ app.get('/ssr', async (req, res) => {
           window.initialPath = '/ssr';
           window.userData = ${JSON.stringify(userData)};
         </script>
-        <script src="http://8.130.87.194/client.js"></script>
+        <script src="/client.js"></script>
       </body> 
     </html>
   `);

@@ -11,7 +11,7 @@ message GetUserInfoRequest {
 
 // 定义响应消息结构
 message GetUserInfoResponse {
-  int32 userId = 1;
-  string userName = 2;
+  string userId = 1;
+  string username = 2;
   // 可以根据实际返回的用户信息字段依次定义更多的字段类型和标识号
 }
